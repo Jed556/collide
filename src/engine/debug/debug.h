@@ -2,7 +2,7 @@
 #define DEBUG_H
 
 #include <raylib.h>
-#include <raymath.h>
+#include "../math/math.h"
 
 #include <string>
 

@@ -4,6 +4,7 @@
 #include <raylib.h>
 
 #include "../player/player.h"
+#include "../math/math.h"
 
 struct GameCamera {
     Camera2D prop;  // camera properties

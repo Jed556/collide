@@ -3,8 +3,8 @@
 void GameCamera::update(Vector2 position, bool ease) {
     // Ease camera movement
     if (ease) {
-        prop.target.x += (position.x - prop.target.x) * speed;
-        prop.target.y += (position.y - prop.target.y) * speed;
+        prop.target.x += (position.x - prop.target.x) * math::normSpeed(speed);
+        prop.target.y += (position.y - prop.target.y) * math::normSpeed(speed);
     } else {
         prop.target = {position.x, position.y};
     }

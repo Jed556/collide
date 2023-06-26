@@ -13,19 +13,19 @@ int main() {
     player.prevPosition = player.position;
     player.origin = player.getHalfSize();
     player.color = GREEN;
-    player.speed = 5.0f;
+    player.speed = 50.0f;
 
     GameCamera camera;
     camera.prop.target = player.position;
     camera.prop.offset = {player.position.x - (mapSize.x / 2.0f - screenWidth / 2.0f), player.position.y - (mapSize.y / 2.0f - screenHeight / 2.0f)};
     camera.prop.rotation = 0.0f;
     camera.prop.zoom = 1.0f;
-    camera.speed = 0.1f;
+    camera.speed = 1.0f;
 
     Debug debug({(float)screenWidth, (float)screenHeight});
 
     InitWindow(screenWidth, screenHeight, "RPG (Test)");
-    SetTargetFPS(60);
+    SetTargetFPS(144);
 
     while (!WindowShouldClose()) {
         // Begin debug mode

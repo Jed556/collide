@@ -10,6 +10,8 @@ struct Player {
     Color color;
     float speed;
     void update();
+    bool collide(Vector2 start, Vector2 end);
+    void draw();
 };
 
 #endif  // PLAYER_H

@@ -2,18 +2,16 @@
 
 const int screenWidth = 1000;
 const int screenHeight = 800;
-const int mapWidth = 800;
-const int mapHeight = 450;
+const int mapWidth = 1000;
+const int mapHeight = 800;
 
 int main() {
     Player player;
-    player.size = {50, 50};
+    player.size = {40, 40};
     player.position = {screenWidth / 2.0f - player.size.x / 2.0f, screenHeight / 2.0f - player.size.y / 2.0f};
     player.prevPosition = player.position;
     player.color = GREEN;
     player.speed = 5.0f;
-
-    InitWindow(screenWidth, screenHeight, "RPG (Test)");
 
     GameCamera camera;
     camera.prop.target = {player.position.x + player.size.x / 2.0f, player.position.y + player.size.y / 2.0f};
@@ -22,15 +20,22 @@ int main() {
     camera.prop.zoom = 1.0f;
     camera.speed = 0.1f;
 
+    Debug debug({(float)screenWidth, (float)screenHeight});
+
+    InitWindow(screenWidth, screenHeight, "RPG (Test)");
     SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
-        BeginDrawing();
+        // Begin debug mode
+        debug.begin();
 
+        // Refresh screen
+        BeginDrawing();
         ClearBackground(RAYWHITE);
 
         // Update camera and player
         player.update();
+        player.collide({0, 0}, {mapWidth, mapHeight});
         camera.update(player.position, player.size, true, 5);
 
         // Begin camera mode
@@ -44,17 +49,22 @@ int main() {
         }
 
         // Draw the player
-        DrawRectangleV({player.position.x, player.position.y}, player.size, player.color);
+        player.draw();
 
         // End camera mode
         camera.end();
 
-        // Draw point at the center of the screen
-        DrawCircle(screenWidth / 2.0f, screenHeight / 2.0f, 5, RED);
+        // Show debug info
+        debug.showAll(true, false);
+        debug.showPosition(player.position, player.size, true, 3, "Player");
+        debug.showPosition(player.position, player.size, false, 3, "Player");
+        debug.showPosition(camera.prop.target, {0}, false, 3, "Camera");
 
+        // End drawing / swap buffers
         EndDrawing();
     }
 
+    // Bye!
     CloseWindow();
     return 0;
 }

@@ -26,5 +26,5 @@ bool Player::collide(Vector2 start, Vector2 end) {
 }
 
 void Player::draw() {
-    DrawRectangleV(position, size, color);
+    DrawRectanglePro({position.x, position.y, size.x, size.y}, origin, 0.0f, color);
 }

@@ -1,12 +1,6 @@
 #include "camera.h"
 
-void GameCamera::update(Vector2 position, Vector2 size, bool ease, int focus) {
-    // Center camera on object
-    if (focus == 5) {
-        position.x = position.x + size.x / 2.0f;
-        position.y = position.y + size.y / 2.0f;
-    }
-
+void GameCamera::update(Vector2 position, Vector2 size, bool ease) {
     // Ease camera movement
     if (ease) {
         prop.target.x += (position.x - prop.target.x) * speed;

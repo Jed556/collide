@@ -8,8 +8,9 @@ const int mapHeight = 800;
 int main() {
     Player player;
     player.size = {40, 40};
-    player.position = {screenWidth / 2.0f - player.size.x / 2.0f, screenHeight / 2.0f - player.size.y / 2.0f};
+    player.position = {screenWidth / 2.0f, screenHeight / 2.0f};
     player.prevPosition = player.position;
+    player.origin = {player.size.x / 2.0f, player.size.y / 2.0f};
     player.color = GREEN;
     player.speed = 5.0f;
 
@@ -35,8 +36,8 @@ int main() {
 
         // Update camera and player
         player.update();
-        player.collide({0, 0}, {mapWidth, mapHeight});
-        camera.update(player.position, player.size, true, 5);
+        player.collide({player.size.x / 2, player.size.y / 2}, {mapWidth, mapHeight});
+        camera.update(player.position, player.size, true);
 
         // Begin camera mode
         camera.begin();
@@ -56,7 +57,6 @@ int main() {
 
         // Show debug info
         debug.showAll(true, false);
-        debug.showPosition(player.position, player.size, true, 3, "Player");
         debug.showPosition(player.position, player.size, false, 3, "Player");
         debug.showPosition(camera.prop.target, {0}, false, 3, "Camera");
 

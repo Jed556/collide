@@ -4,9 +4,10 @@
 #include <raylib.h>
 
 struct Player {
+    Vector2 size;
     Vector2 position;
     Vector2 prevPosition;
-    Vector2 size;
+    Vector2 origin;
     Color color;
     float speed;
     void update();

@@ -1,6 +1,6 @@
 #include "camera.h"
 
-void GameCamera::update(Vector2 position, Vector2 size, bool ease) {
+void GameCamera::update(Vector2 position, bool ease) {
     // Ease camera movement
     if (ease) {
         prop.target.x += (position.x - prop.target.x) * speed;

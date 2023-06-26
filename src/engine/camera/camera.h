@@ -16,7 +16,7 @@ struct GameCamera {
      * @param size size of object to follow
      * @param ease ease camera movement
      */
-    void update(Vector2 position, Vector2 size, bool ease);
+    void update(Vector2 position, bool ease);
 
     /**
      * @brief Begin camera mode

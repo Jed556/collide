@@ -13,6 +13,7 @@ struct Player {
     void update();
     bool collide(Vector2 start, Vector2 end);
     void draw();
+    Vector2 getHalfSize();
 };
 
 #endif  // PLAYER_H

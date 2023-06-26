@@ -28,3 +28,7 @@ bool Player::collide(Vector2 start, Vector2 end) {
 void Player::draw() {
     DrawRectanglePro({position.x, position.y, size.x, size.y}, origin, 0.0f, color);
 }
+
+Vector2 Player::getHalfSize() {
+    return {size.x / 2.0f, size.y / 2.0f};
+}

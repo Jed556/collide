@@ -2,20 +2,19 @@
 
 const int screenWidth = 1000;
 const int screenHeight = 800;
-const int mapWidth = 1000;
-const int mapHeight = 800;
+Vector2 mapSize = {1000, 800};
 
 int main() {
     Player player;
     player.size = {40, 40};
     player.position = {screenWidth / 2.0f, screenHeight / 2.0f};
     player.prevPosition = player.position;
-    player.origin = {player.size.x / 2.0f, player.size.y / 2.0f};
+    player.origin = player.getHalfSize();
     player.color = GREEN;
     player.speed = 5.0f;
 
     GameCamera camera;
-    camera.prop.target = {player.position.x + player.size.x / 2.0f, player.position.y + player.size.y / 2.0f};
+    camera.prop.target = {player.position.x, player.position.y};
     camera.prop.offset = {screenWidth / 2.0f, screenHeight / 2.0f};
     camera.prop.rotation = 0.0f;
     camera.prop.zoom = 1.0f;
@@ -36,15 +35,15 @@ int main() {
 
         // Update camera and player
         player.update();
-        player.collide({player.size.x / 2, player.size.y / 2}, {mapWidth, mapHeight});
+        player.collide(player.getHalfSize(), mapSize);
         camera.update(player.position, player.size, true);
 
         // Begin camera mode
         camera.begin();
 
         // Draw the game map (assuming it's a static background)
-        for (int y = 0; y < mapHeight; y += screenHeight) {
-            for (int x = 0; x < mapWidth; x += screenWidth) {
+        for (int y = 0; y < mapSize.y; y += screenHeight) {
+            for (int x = 0; x < mapSize.x; x += screenWidth) {
                 DrawRectangle(x, y, screenWidth, screenHeight, LIGHTGRAY);
             }
         }

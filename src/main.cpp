@@ -1,21 +1,23 @@
 #include "engine/engine.h"
+#include "raymath.h"
 
 const int screenWidth = 1000;
 const int screenHeight = 800;
-Vector2 mapSize = {1000, 800};
+Vector2 mapSize = {1920, 1080};
+Vector2 tileSize = {40, 40};
 
 int main() {
     Player player;
     player.size = {40, 40};
-    player.position = {screenWidth / 2.0f, screenHeight / 2.0f};
+    player.position = {mapSize.x / 2.0f, mapSize.y / 2.0f};
     player.prevPosition = player.position;
     player.origin = player.getHalfSize();
     player.color = GREEN;
     player.speed = 5.0f;
 
     GameCamera camera;
-    camera.prop.target = {player.position.x, player.position.y};
-    camera.prop.offset = {screenWidth / 2.0f, screenHeight / 2.0f};
+    camera.prop.target = player.position;
+    camera.prop.offset = {player.position.x - (mapSize.x / 2.0f - screenWidth / 2.0f), player.position.y - (mapSize.y / 2.0f - screenHeight / 2.0f)};
     camera.prop.rotation = 0.0f;
     camera.prop.zoom = 1.0f;
     camera.speed = 0.1f;
@@ -36,26 +38,22 @@ int main() {
         // Update camera and player
         player.update();
         player.collide(player.getHalfSize(), mapSize);
-        camera.update(player.position, player.size, true);
+        camera.update(player.position, true);
 
         // Begin camera mode
         camera.begin();
 
-        // Draw the game map (assuming it's a static background)
-        for (int y = 0; y < mapSize.y; y += screenHeight) {
-            for (int x = 0; x < mapSize.x; x += screenWidth) {
-                DrawRectangle(x, y, screenWidth, screenHeight, LIGHTGRAY);
-            }
-        }
-
         // Draw the player
         player.draw();
+
+        // Draw debug grid
+        debug.showGrid(mapSize, tileSize);
 
         // End camera mode
         camera.end();
 
         // Show debug info
-        debug.showAll(true, false);
+        debug.showOverlays(true, false);
         debug.showPosition(player.position, player.size, false, 3, "Player");
         debug.showPosition(camera.prop.target, {0}, false, 3, "Camera");
 

@@ -1,26 +1,9 @@
-#include "raylib.h"
+#include "engine/engine.h"
 
-const int screenWidth = 800;
-const int screenHeight = 450;
-const int mapWidth = 800;   // Width of the game map
-const int mapHeight = 450;  // Height of the game map
-
-struct Player {
-    Vector2 position;
-    Vector2 prevPosition;
-    Vector2 size;
-    Color color;
-    float speed;
-};
-
-void UpdatePlayer(Player& player) {
-    player.prevPosition = player.position;
-
-    if (IsKeyDown(KEY_D)) player.position.x += player.speed;
-    if (IsKeyDown(KEY_A)) player.position.x -= player.speed;
-    if (IsKeyDown(KEY_S)) player.position.y += player.speed;
-    if (IsKeyDown(KEY_W)) player.position.y -= player.speed;
-}
+const int screenWidth = 1000;
+const int screenHeight = 800;
+const int mapWidth = 800;
+const int mapHeight = 450;
 
 int main() {
     Player player;
@@ -32,33 +15,26 @@ int main() {
 
     InitWindow(screenWidth, screenHeight, "RPG (Test)");
 
-    Camera2D camera;
-    camera.target = {player.position.x + player.size.x / 2.0f, player.position.y + player.size.y / 2.0f};
-    camera.offset = {screenWidth / 2.0f, screenHeight / 2.0f};
-    camera.rotation = 0.0f;
-    camera.zoom = 1.0f;
-
-    const float cameraSpeed = 0.1f;
+    GameCamera camera;
+    camera.prop.target = {player.position.x + player.size.x / 2.0f, player.position.y + player.size.y / 2.0f};
+    camera.prop.offset = {screenWidth / 2.0f, screenHeight / 2.0f};
+    camera.prop.rotation = 0.0f;
+    camera.prop.zoom = 1.0f;
+    camera.speed = 0.1f;
 
     SetTargetFPS(60);
-
-    RenderTexture2D accumulationBuffer = LoadRenderTexture(screenWidth, screenHeight);
-    SetTextureFilter(accumulationBuffer.texture, TEXTURE_FILTER_BILINEAR);
 
     while (!WindowShouldClose()) {
         BeginDrawing();
 
         ClearBackground(RAYWHITE);
 
-        // Update
-        UpdatePlayer(player);
-
-        // Ease camera movement towards player position
-        camera.target.x += ((player.position.x + player.size.x / 2.0f) - camera.target.x) * cameraSpeed;
-        camera.target.y += ((player.position.y + player.size.y / 2.0f) - camera.target.y) * cameraSpeed;
+        // Update camera and player
+        player.update();
+        camera.update(player.position, player.size, true, 5);
 
         // Begin camera mode
-        BeginMode2D(camera);
+        camera.begin();
 
         // Draw the game map (assuming it's a static background)
         for (int y = 0; y < mapHeight; y += screenHeight) {
@@ -71,7 +47,7 @@ int main() {
         DrawRectangleV({player.position.x, player.position.y}, player.size, player.color);
 
         // End camera mode
-        EndMode2D();
+        camera.end();
 
         // Draw point at the center of the screen
         DrawCircle(screenWidth / 2.0f, screenHeight / 2.0f, 5, RED);

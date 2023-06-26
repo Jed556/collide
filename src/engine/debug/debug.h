@@ -2,9 +2,10 @@
 #define DEBUG_H
 
 #include <raylib.h>
-#include "../math/math.h"
 
 #include <string>
+
+#include "../math/math.h"
 
 class Debug {
    private:
@@ -21,12 +22,58 @@ class Debug {
     Vector2 infoPadding = {6, 5};
 
    public:
+    /**
+     * @brief Construct a new Debug object
+     *
+     * @param screenSize Window dimensions
+     */
     Debug(Vector2 screenSize);
+
+    /**
+     * @brief Begin debug / reset debug data
+     *
+     */
     void begin();
+
+    /**
+     * @brief Show all debug overlays
+     *
+     * @param showCenterPoint Show center point
+     * @param showCenterCross Show center cross
+     */
     void showOverlays(bool showCenterPoint, bool showCenterCross);
+
+    /**
+     * @brief Show map grid
+     *
+     * @param mapSize Map size
+     * @param tileSize Tile size
+     */
     void showGrid(Vector2 mapSize, Vector2 tileSize);
+
+    /**
+     * @brief Show center point and cross
+     *
+     * @param showPoint Show center point
+     * @param showCross Show center cross
+     */
     void showCenter(bool showPoint, bool showCross);
+
+    /**
+     * @brief Show FPS
+     *
+     */
     void showFPS();
+
+    /**
+     * @brief Show object position
+     *
+     * @param objectPosition Object position
+     * @param objectSize Object size
+     * @param centered Calculate center position
+     * @param intPrecision Integer precision
+     * @param name Object name
+     */
     void showPosition(Vector2 objectPosition, Vector2 objectSize, bool centered, int intPrecision, std::string name);
 };  // namespace debug
 

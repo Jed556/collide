@@ -9,6 +9,7 @@ void Player::update() {
     if (IsKeyDown(KEY_W)) position.y -= math::normSpeed(speed);
 }
 
+
 bool Player::collide(Vector2 start, Vector2 end) {
     bool collided = false;
     if (position.x < start.x || position.x + size.x > start.x + end.x) {

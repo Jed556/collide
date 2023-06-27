@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 3.0.0)
 set(CMAKE_TOOLCHAIN_FILE "../../Managers/vcpkg/scripts/buildsystems/vcpkg.cmake")
 project(RPG
-    VERSION 1.4.4
+    VERSION 1.4.5
     DESCRIPTION "Test game"
     HOMEPAGE_URL "https://github.com/Jed556/game"
     LANGUAGES CXX
@@ -31,10 +31,12 @@ add_executable(${PROJECT_NAME} ${SOURCE})
 # Link libraries
 find_package(unofficial-sqlite3 CONFIG REQUIRED)
 find_package(raylib CONFIG REQUIRED)
+find_package(fmt CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
     unofficial::sqlite3::sqlite3
     raylib
+    fmt::fmt-header-only
 )
 
 # Copy resources to build directory  during the process
@@ -67,6 +69,7 @@ install(TARGETS ${PROJECT_NAME} DESTINATION ${FOLDER_NAME}/bin)
 install(FILES
     $<TARGET_FILE:unofficial::sqlite3::sqlite3> 
     $<TARGET_FILE:raylib>
+    $<TARGET_FILE:fmt::fmt>
     src/bin/libstdc++-6.dll
     src/bin/libgcc_s_seh-1.dll
     src/bin/freetype.dll

@@ -45,30 +45,18 @@ void Debug::showFPS() {
     ++numShown;
 }
 
-void Debug::showPosition(Vector2 objectPosition, Vector2 objectSize, bool centered, int intPrecision, std::string name) {
+void Debug::showPosition(Vector2 objectPosition, Vector2 objectSize, bool centered, std::string name) {
     float yPos = infoPadding.y + numShown * infoSpacing;
     if (centered) {
         objectPosition.x += objectSize.x / 2.0f;
         objectPosition.y += objectSize.y / 2.0f;
     }
 
-    std::string fillerX, fillerY;
-    if (objectPosition.x / 10.0f < 1.0f) {
-        fillerX = "00";
-    } else if (objectPosition.x / 100.0f < 1.0f) {
-        fillerX = "0";
-    } else {
-        fillerX = "";
-    }
-    if (objectPosition.y / 10.0f < 1.0f) {
-        fillerY = "00";
-    } else if (objectPosition.y / 100.0f < 1.0f) {
-        fillerY = "0";
-    } else {
-        fillerY = "";
-    }
+    std::string formatString = "%0" + std::to_string(7) + ".2f";
+    std::string x = fmt::format(formatString, objectPosition.x);
+    std::string y = fmt::format(formatString, objectPosition.y);
 
-    DrawTextEx(font, TextFormat("%s: (%s%.2f, %s%.2f)", name.c_str(), fillerX.c_str(), objectPosition.x, fillerY.c_str(), objectPosition.y),
+    DrawTextEx(font, TextFormat("%s: (%07.2f, %07.2f)", name.c_str(), objectPosition.x, objectPosition.y),
                {infoPadding.x, yPos}, fontSize, fontSpacing, textColor);
     ++numShown;
 }

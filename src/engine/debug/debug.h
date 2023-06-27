@@ -2,6 +2,7 @@
 #define DEBUG_H
 
 #include <raylib.h>
+#include <fmt/format.h>
 
 #include <string>
 
@@ -74,7 +75,7 @@ class Debug {
      * @param intPrecision Integer precision
      * @param name Object name
      */
-    void showPosition(Vector2 objectPosition, Vector2 objectSize, bool centered, int intPrecision, std::string name);
+    void showPosition(Vector2 objectPosition, Vector2 objectSize, bool centered, std::string name);
 };  // namespace debug
 
 #endif  // DEBUG_H

@@ -1,31 +1,37 @@
 #include "engine/engine.h"
-#include "raymath.h"
 
+// Window configurations
 const int screenWidth = 1000;
 const int screenHeight = 800;
+const int targetFPS = 144;
+const char* windowTitle = "RPG (Test)";
+
+// Game configurations
 Vector2 mapSize = {1920, 1080};
 Vector2 tileSize = {40, 40};
+Vector2 playerSize = {40, 40};
+Debug debug({(float)screenWidth, (float)screenHeight});
+
+// Game objects
+Player player(playerSize, {mapSize.x / 2.0f, mapSize.y / 2.0f}, {playerSize.x / 2, playerSize.y / 2}, GREEN, 50.0f);
+// GameCamera camera(player.position, {100, 100}, 0.0f, 1.0f, 1.0f);
+GameCamera camera(player.position, {(screenWidth / 2.0f - mapSize.x / 2.0f), (screenHeight / 2.0f - mapSize.y / 2.0f)}, 0.0f, 1.0f, 1.0f);
+
+void Initialize() {
+    debug.toggle();
+    InitWindow(screenWidth, screenHeight, windowTitle);
+    SetTargetFPS(targetFPS);
+}
 
 int main() {
-    Player player;
-    player.size = {40, 40};
-    player.position = {mapSize.x / 2.0f, mapSize.y / 2.0f};
-    player.prevPosition = player.position;
-    player.origin = player.getHalfSize();
-    player.color = GREEN;
-    player.speed = 50.0f;
+    Initialize();
 
-    GameCamera camera;
-    camera.prop.target = player.position;
-    camera.prop.offset = {player.position.x - (mapSize.x / 2.0f - screenWidth / 2.0f), player.position.y - (mapSize.y / 2.0f - screenHeight / 2.0f)};
-    camera.prop.rotation = 0.0f;
-    camera.prop.zoom = 1.0f;
-    camera.speed = 1.0f;
-
-    Debug debug({(float)screenWidth, (float)screenHeight});
-
-    InitWindow(screenWidth, screenHeight, "RPG (Test)");
-    SetTargetFPS(144);
+    // int precision = 0;
+    // int mapDimension = std::max(mapSize.x, mapSize.y);
+    // while (mapDimension % 10 != 0 && precision < INT_MAX) {
+    //     mapDimension *= 10;
+    //     precision++;
+    // }
 
     while (!WindowShouldClose()) {
         // Begin debug mode
@@ -36,9 +42,9 @@ int main() {
         ClearBackground(RAYWHITE);
 
         // Update camera and player
-        player.update();
+        player.move();
         player.collide(player.getHalfSize(), mapSize);
-        camera.update(player.position, true);
+        camera.update(player.position, EaseType::EaseInOutQuad);
 
         // Begin camera mode
         camera.begin();
@@ -53,9 +59,11 @@ int main() {
         camera.end();
 
         // Show debug info
-        debug.showOverlays(true, false);
-        debug.showPosition(player.position, player.size, false, 3, "Player");
-        debug.showPosition(camera.prop.target, {0}, false, 3, "Camera");
+        if (debug.isActive()) {
+            debug.showOverlays(true, false);
+            debug.showPosition(player.position, player.size, false, "Player");
+            debug.showPosition(camera.prop.target, {0}, false, "Camera");
+        }
 
         // End drawing / swap buffers
         EndDrawing();

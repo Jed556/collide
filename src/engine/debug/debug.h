@@ -1,8 +1,8 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-#include <raylib.h>
 #include <fmt/format.h>
+#include <raylib.h>
 
 #include <string>
 
@@ -10,6 +10,7 @@
 
 class Debug {
    private:
+    bool debugMode = false;
     Vector2 screenSize;
 
     Font font = GetFontDefault();
@@ -29,6 +30,20 @@ class Debug {
      * @param screenSize Window dimensions
      */
     Debug(Vector2 screenSize);
+
+    /**
+     * @brief Toggle debug mode
+     *
+     */
+    void toggle();
+
+    /**
+     * @brief Check if debug mode is active
+     *
+     * @return true
+     * @return false
+     */
+    bool isActive();
 
     /**
      * @brief Begin debug / reset debug data

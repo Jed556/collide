@@ -4,6 +4,14 @@ Debug::Debug(Vector2 screenSize) {
     this->screenSize = screenSize;
 }
 
+void Debug::toggle() {
+    debugMode = !debugMode;
+}
+
+bool Debug::isActive() {
+    return debugMode;
+}
+
 void Debug::begin() {
     numShown = 0;
 }
@@ -52,9 +60,9 @@ void Debug::showPosition(Vector2 objectPosition, Vector2 objectSize, bool center
         objectPosition.y += objectSize.y / 2.0f;
     }
 
-    std::string formatString = "%0" + std::to_string(7) + ".2f";
-    std::string x = fmt::format(formatString, objectPosition.x);
-    std::string y = fmt::format(formatString, objectPosition.y);
+    std::string format = "%0" + std::to_string(7) + ".2f";
+    std::string x = fmt::format(format, objectPosition.x);
+    std::string y = fmt::format(format, objectPosition.y);
 
     DrawTextEx(font, TextFormat("%s: (%07.2f, %07.2f)", name.c_str(), objectPosition.x, objectPosition.y),
                {infoPadding.x, yPos}, fontSize, fontSpacing, textColor);

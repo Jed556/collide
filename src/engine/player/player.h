@@ -4,6 +4,7 @@
 #include <raylib.h>
 
 #include "../math/math.h"
+#include "../control/control.h"
 
 struct Player {
     Vector2 size;
@@ -14,10 +15,23 @@ struct Player {
     float speed;
 
     /**
-     * @brief Update player position
+     * @brief Construct a new Player object
      *
+     * @param size size of player
+     * @param position position of player
+     * @param origin origin of player
+     * @param color color of player
+     * @param speed speed of player
      */
-    void update();
+    Player(Vector2 size, Vector2 position, Vector2 origin, Color color, float speed);
+
+    /**
+     * @brief Update player position based on input
+     *
+     * @param dPad if only one key can be pressed at a time
+     * @param scheme 0 for WASD, 1 for arrow keys, 2 for IJKL, 3 for numpad
+     */
+    void move(bool dPad = false, int scheme = 0);
 
     /**
      * @brief Check if player collides with object

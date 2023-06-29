@@ -267,7 +267,7 @@ float EaseInOutBounce(float time);
  * @param easeType ease type
  * @return float
  */
-float Ease(float time, EaseType easeType);
+float Ease(float time, EaseType easeType, float start, float end);
 }  // namespace ease
 
 #endif  // MATH_H

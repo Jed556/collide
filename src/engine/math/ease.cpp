@@ -151,70 +151,94 @@ float EaseInOutBounce(float time) {
     return EaseOutBounce(time * 2 - 1) * 0.5f + 0.5f;
 }
 
-float Ease(float time, EaseType easeType) {
+float Ease(float time, EaseType easeType, float start, float end) {
+    float ease = 0;
     switch (easeType) {
         case EaseType::None:
-            return None(time);
+            ease = None(time);
+            break;
         case EaseType::Linear:
-            return Linear(time);
+            ease = Linear(time);
+            break;
 
         // Quadratic Easing
         case EaseType::EaseInQuad:
-            return EaseInQuad(time);
+            ease = EaseInQuad(time);
+            break;
         case EaseType::EaseOutQuad:
-            return EaseOutQuad(time);
+            ease = EaseOutQuad(time);
+            break;
         case EaseType::EaseInOutQuad:
-            return EaseInOutQuad(time);
+            ease = EaseInOutQuad(time);
+            break;
 
         // Cubic Easing
         case EaseType::EaseInCubic:
-            return EaseInCubic(time);
+            ease = EaseInCubic(time);
+            break;
         case EaseType::EaseOutCubic:
-            return EaseOutCubic(time);
+            ease = EaseOutCubic(time);
+            break;
         case EaseType::EaseInOutCubic:
-            return EaseInOutCubic(time);
+            ease = EaseInOutCubic(time);
+            break;
 
         // Quartic Easing
         case EaseType::EaseInQuart:
-            return EaseInQuart(time);
+            ease = EaseInQuart(time);
+            break;
         case EaseType::EaseOutQuart:
-            return EaseOutQuart(time);
+            ease = EaseOutQuart(time);
+            break;
         case EaseType::EaseInOutQuart:
-            return EaseInOutQuart(time);
+            ease = EaseInOutQuart(time);
+            break;
 
         // Quintic Easing
         case EaseType::EaseInQuint:
-            return EaseInQuint(time);
+            ease = EaseInQuint(time);
+            break;
         case EaseType::EaseOutQuint:
-            return EaseOutQuint(time);
+            ease = EaseOutQuint(time);
+            break;
         case EaseType::EaseInOutQuint:
-            return EaseInOutQuint(time);
+            ease = EaseInOutQuint(time);
+            break;
 
         // Sine Easing
         case EaseType::EaseInSine:
-            return EaseInSine(time);
+            ease = EaseInSine(time);
+            break;
         case EaseType::EaseOutSine:
-            return EaseOutSine(time);
+            ease = EaseOutSine(time);
+            break;
         case EaseType::EaseInOutSine:
-            return EaseInOutSine(time);
+            ease = EaseInOutSine(time);
+            break;
 
         // Elastic Easing
         case EaseType::EaseInElastic:
-            return EaseInElastic(time);
+            ease = EaseInElastic(time);
+            break;
         case EaseType::EaseOutElastic:
-            return EaseOutElastic(time);
+            ease = EaseOutElastic(time);
+            break;
         case EaseType::EaseInOutElastic:
-            return EaseInOutElastic(time);
+            ease = EaseInOutElastic(time);
+            break;
 
         // Bounce Easing
         case EaseType::EaseInBounce:
-            return EaseInBounce(time);
+            ease = EaseInBounce(time);
+            break;
         case EaseType::EaseOutBounce:
-            return EaseOutBounce(time);
+            ease = EaseOutBounce(time);
+            break;
         case EaseType::EaseInOutBounce:
-            return EaseInOutBounce(time);
+            ease = EaseInOutBounce(time);
+            break;
     }
 
-    return 0;
+    return start + (end - start) * ease;
 }
 }  // namespace ease

@@ -7,11 +7,14 @@
 #include <string>
 
 #include "../math/math.h"
+#include "../display/display.h"
+#include "../control/control.h"
 
 class Debug {
    private:
     bool debugMode = false;
     Vector2 screenSize;
+    int frameCount = 0;
 
     Font font = GetFontDefault();
     float fontSize = 20;

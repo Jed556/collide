@@ -3,7 +3,7 @@
 
 #include <raylib.h>
 
-namespace window {
+namespace display {
 /**
  * @brief Set window FPS
  *

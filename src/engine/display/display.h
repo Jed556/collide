@@ -12,6 +12,13 @@ namespace display {
 void setFPS(int fps);
 
 /**
+ * @brief Get frame count
+ * 
+ * @return int frame count
+ */
+int getFrameCount();
+
+/**
  * @brief Initialize window
  * 
  * @param dimension Window dimension to set

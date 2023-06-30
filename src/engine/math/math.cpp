@@ -3,7 +3,7 @@
 namespace math {
 float normSpeed(float speed) {
     // DO NOT CHANGE THIS ALL SYSTEM SPEEDS RELY ON THIS
-    return speed * 10.0f * GetFrameTime();
+    return speed * GetFrameTime();
 }
 
 std::string addLeadingZeroes(double num, int targetLength, bool zeroesOnly) {

@@ -24,7 +24,6 @@ GameCamera camera(player.position, {windowDimension.x / 2 - player.position.x, w
 int main() {
     display::init(windowDimension, windowTitle);
     display::setFPS(targetFPS);
-    debug.toggle();
 
     // int precision = 0;
     // int mapDimension = std::max(mapSize.x, mapSize.y);
@@ -36,6 +35,9 @@ int main() {
     while (!WindowShouldClose()) {
         // Begin debug mode
         debug.begin();
+        if (key::debug()) {
+            debug.toggle();
+        }
 
         // Refresh screen
         BeginDrawing();
@@ -59,11 +61,9 @@ int main() {
         camera.end();
 
         // Show debug info
-        if (debug.isActive()) {
-            debug.showOverlays(true, false);
-            debug.showPosition(player.position, player.size, false, "Player");
-            debug.showPosition(camera.prop.target, {0}, false, "Camera");
-        }
+        debug.showOverlays(true, false);
+        debug.showPosition(player.position, player.size, false, "Player");
+        debug.showPosition(camera.prop.target, {0}, false, "Camera");
 
         // End drawing / swap buffers
         EndDrawing();

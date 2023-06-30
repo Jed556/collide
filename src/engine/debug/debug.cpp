@@ -49,7 +49,21 @@ void Debug::showCenter(bool showPoint, bool showCross) {
 
 void Debug::showFPS() {
     float yPos = infoPadding.y + numShown * infoSpacing;
-    DrawTextEx(font, TextFormat("FPS: %i", GetFPS()), {infoPadding.x, yPos}, fontSize, fontSpacing, textColor);
+    float deltaTime = GetFrameTime();
+
+    static float elapsedTime = 0.0f;
+    static int frames = 0;
+    // static int fps = 0;
+    elapsedTime += deltaTime;
+    frames++;
+
+    if (elapsedTime >= 1.0f) {
+        // fps = frames;
+        frames = 0;
+        elapsedTime -= 1.0f;
+    }
+
+    DrawTextEx(font, TextFormat("FPS: %i (%i)", GetFPS(), frames), {infoPadding.x, yPos}, fontSize, fontSpacing, textColor);
     ++numShown;
 }
 

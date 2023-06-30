@@ -5,7 +5,7 @@
 // Window configurations
 const int windowWidth = 1000;
 const int windowHeight = 900;
-const int targetFPS = 144;
+const int targetFPS = 0;  // 0 = auto detect
 const char* windowTitle = "RPG (Test)";
 
 // Game configurations
@@ -17,17 +17,14 @@ Vector2 playerSize = {40, 40};
 Vector2 windowDimension = {windowWidth, windowHeight};
 Debug debug({windowDimension.x, windowDimension.y});
 // Game objects
-Player player(playerSize, {mapSize.x / 2.0f, mapSize.y / 2.0f}, {playerSize.x / 2, playerSize.y / 2}, GREEN, 50.0f);
-GameCamera camera(player.position,{windowDimension.x / 2 - player.position.x, windowDimension.y / 2 - player.position.y}, 0.0f, 1.0f, 1.0f);
+Player player(playerSize, {0}, {playerSize.x / 2, playerSize.y / 2}, GREEN, 500.0f);
+GameCamera camera(player.position, {windowDimension.x / 2 - player.position.x, windowDimension.y / 2 - player.position.y}, 0.0f, 1.0f, 20.0f);
 
-void Initialize() {
-    debug.toggle();
-    InitWindow((int)windowDimension.x, (int)windowDimension.y, windowTitle);
-    SetTargetFPS(targetFPS);
-}
-
+// MAIN CODE
 int main() {
-    Initialize();
+    display::init(windowDimension, windowTitle);
+    display::setFPS(targetFPS);
+    debug.toggle();
 
     // int precision = 0;
     // int mapDimension = std::max(mapSize.x, mapSize.y);
@@ -73,6 +70,6 @@ int main() {
     }
 
     // Bye!
-    CloseWindow();
+    display::close();
     return 0;
 }

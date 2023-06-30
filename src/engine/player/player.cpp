@@ -73,6 +73,10 @@ void Player::move(bool dPad, int scheme) {
     }
 }
 
+void Player::randomMove(Vector2 mapSize) {
+    position = {(float)GetRandomValue(0, mapSize.x), (float)GetRandomValue(0, mapSize.y)};
+}
+
 bool Player::collide(Vector2 start, Vector2 end) {
     bool collided = false;
     Vector2 newPosition = position;

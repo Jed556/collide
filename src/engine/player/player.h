@@ -3,8 +3,8 @@
 
 #include <raylib.h>
 
-#include "../math/math.h"
 #include "../control/control.h"
+#include "../math/math.h"
 
 struct Player {
     Vector2 size;
@@ -32,6 +32,13 @@ struct Player {
      * @param scheme 0 for WASD, 1 for arrow keys, 2 for IJKL, 3 for numpad
      */
     void move(bool dPad = false, int scheme = 0);
+
+    /**
+     * @brief Move player randomly
+     *
+     * @param mapSize size of map
+     */
+    void randomMove(Vector2 mapSize);
 
     /**
      * @brief Check if player collides with object

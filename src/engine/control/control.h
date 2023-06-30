@@ -30,6 +30,14 @@ bool held(int key);
  * @return false
  */
 bool released(int key);
+
+/**
+ * @brief Check if debug key is pressed
+ *
+ * @return true
+ * @return false
+ */
+bool debug();
 }  // namespace key
 
 namespace move {

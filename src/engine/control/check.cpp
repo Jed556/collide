@@ -12,4 +12,8 @@ bool held(int key) {
 bool released(int key) {
     return IsKeyReleased(key);
 }
+
+bool debug() {
+    return IsKeyPressed(KEY_F1);
+}
 }  // namespace key

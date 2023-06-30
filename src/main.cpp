@@ -1,8 +1,10 @@
+#include <iostream>
+
 #include "engine/engine.h"
 
 // Window configurations
-const int screenWidth = 1000;
-const int screenHeight = 800;
+const int windowWidth = 1000;
+const int windowHeight = 900;
 const int targetFPS = 144;
 const char* windowTitle = "RPG (Test)";
 
@@ -10,16 +12,17 @@ const char* windowTitle = "RPG (Test)";
 Vector2 mapSize = {1920, 1080};
 Vector2 tileSize = {40, 40};
 Vector2 playerSize = {40, 40};
-Debug debug({(float)screenWidth, (float)screenHeight});
 
+// Auto generated configuration
+Vector2 windowDimension = {windowWidth, windowHeight};
+Debug debug({windowDimension.x, windowDimension.y});
 // Game objects
 Player player(playerSize, {mapSize.x / 2.0f, mapSize.y / 2.0f}, {playerSize.x / 2, playerSize.y / 2}, GREEN, 50.0f);
-// GameCamera camera(player.position, {100, 100}, 0.0f, 1.0f, 1.0f);
-GameCamera camera(player.position, {(screenWidth / 2.0f - mapSize.x / 2.0f), (screenHeight / 2.0f - mapSize.y / 2.0f)}, 0.0f, 1.0f, 1.0f);
+GameCamera camera(player.position,{windowDimension.x / 2 - player.position.x, windowDimension.y / 2 - player.position.y}, 0.0f, 1.0f, 1.0f);
 
 void Initialize() {
     debug.toggle();
-    InitWindow(screenWidth, screenHeight, windowTitle);
+    InitWindow((int)windowDimension.x, (int)windowDimension.y, windowTitle);
     SetTargetFPS(targetFPS);
 }
 

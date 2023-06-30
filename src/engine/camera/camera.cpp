@@ -9,7 +9,7 @@ GameCamera::GameCamera(Vector2 target, Vector2 offset, float rotation, float zoo
 }
 
 void GameCamera::update(Vector2 position, EaseType easeType) {
-    float normSpeed = math::normSpeed(speed * 2);
+    float normSpeed = math::normSpeed(speed);
     if (easeType == EaseType::None) {
         prop.target = position;
     } else if (easeType == EaseType::Legacy) {

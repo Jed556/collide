@@ -6,7 +6,7 @@
 #include "../control/control.h"
 #include "../math/math.h"
 
-struct Player {
+struct Entity {
     Vector2 size;
     Vector2 position;
     Vector2 prevPosition;
@@ -23,7 +23,7 @@ struct Player {
      * @param color color of player
      * @param speed speed of player
      */
-    Player(Vector2 size, Vector2 position, Vector2 origin, Color color, float speed);
+    Entity(Vector2 size, Vector2 position, Vector2 origin, Color color, float speed);
 
     /**
      * @brief Update player position based on input
@@ -43,12 +43,21 @@ struct Player {
     /**
      * @brief Check if player collides with object
      *
-     * @param start start of object
-     * @param end end of object
+     * @param start start of map
+     * @param end end of map
+     * @return true if player is out of bounds
+     * @return false if player is not out of bounds
+     */
+    bool outOfBounds(Vector2 start, Vector2 end);
+
+    /**
+     * @brief Check if player collides with object
+     *
+     * @param object object to check collision with
      * @return true if player collides with object
      * @return false if player does not collide with object
      */
-    bool collide(Vector2 start, Vector2 end);
+    bool collidesWith(Rectangle object);
 
     /**
      * @brief Draw player
@@ -62,6 +71,13 @@ struct Player {
      * @return Vector2
      */
     Vector2 getHalfSize();
+
+    /**
+     * @brief Get the Rectangle of the player
+     *
+     * @return Rectangle
+     */
+    Rectangle getRect();
 };
 
 #endif  // PLAYER_H

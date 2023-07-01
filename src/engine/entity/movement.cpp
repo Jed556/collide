@@ -1,15 +1,6 @@
-#include "player.h"
+#include "entity.h"
 
-Player::Player(Vector2 size, Vector2 position, Vector2 origin, Color color, float speed) {
-    this->size = size;
-    this->position = position;
-    this->prevPosition = position;
-    this->origin = origin;
-    this->color = color;
-    this->speed = speed;
-}
-
-void Player::move(bool dPad, int scheme) {
+void Entity::move(bool dPad, int scheme) {
     prevPosition = position;
     if (dPad) {
         int pressed = 0;
@@ -73,38 +64,6 @@ void Player::move(bool dPad, int scheme) {
     }
 }
 
-void Player::randomMove(Vector2 mapSize) {
+void Entity::randomMove(Vector2 mapSize) {
     position = {(float)GetRandomValue(0, mapSize.x), (float)GetRandomValue(0, mapSize.y)};
-}
-
-bool Player::collide(Vector2 start, Vector2 end) {
-    bool collided = false;
-    Vector2 newPosition = position;
-
-    if (position.x < start.x) {
-        newPosition.x = start.x;
-        collided = true;
-    } else if (position.x + size.x > start.x + end.x) {
-        newPosition.x = start.x + end.x - size.x;
-        collided = true;
-    }
-
-    if (position.y < start.y) {
-        newPosition.y = start.y;
-        collided = true;
-    } else if (position.y + size.y > start.y + end.y) {
-        newPosition.y = start.y + end.y - size.y;
-        collided = true;
-    }
-
-    if (collided) position = newPosition;
-    return collided;
-}
-
-void Player::draw() {
-    DrawRectanglePro({position.x, position.y, size.x, size.y}, origin, 0.0f, color);
-}
-
-Vector2 Player::getHalfSize() {
-    return {size.x / 2.0f, size.y / 2.0f};
 }

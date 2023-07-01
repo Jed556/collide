@@ -3,7 +3,7 @@
 
 #include <raylib.h>
 
-#include "../player/player.h"
+#include "../entity/entity.h"
 #include "../math/math.h"
 
 struct GameCamera {

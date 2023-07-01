@@ -4,6 +4,6 @@
 #include "camera/camera.h"
 #include "debug/debug.h"
 #include "display/display.h"
-#include "player/player.h"
+#include "entity/entity.h"
 
 #endif  // ENGINE_H

@@ -3,6 +3,11 @@
 namespace data {
 bool save(const char* fileName, GameData data) {
     unsigned int dataSize = sizeof(GameData);
+
+    // Create directory if it doesn't exist
+    std::filesystem::path filePath(fileName);
+    std::filesystem::create_directories(filePath.parent_path());
+
     return SaveFileData(fileName, &data, dataSize);
 }
 

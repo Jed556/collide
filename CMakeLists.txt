@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 3.0.0)
 set(CMAKE_TOOLCHAIN_FILE "../../Managers/vcpkg/scripts/buildsystems/vcpkg.cmake")
 project(RPG
-    VERSION 1.18.10
+    VERSION 1.19.10
     DESCRIPTION "Test game"
     HOMEPAGE_URL "https://github.com/Jed556/game"
     LANGUAGES CXX
@@ -42,7 +42,6 @@ target_link_libraries(${PROJECT_NAME}
 # Copy resources to build directory  during the process
 add_custom_target(copy_files ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/res ${CMAKE_BINARY_DIR}/${FOLDER_NAME}/res
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/save ${CMAKE_BINARY_DIR}/${FOLDER_NAME}/save
     COMMENT "Copying files during build"
 )
 
@@ -63,7 +62,6 @@ set(CPACK_PACKAGE_DIRECTORY ${CMAKE_BINARY_DIR}/package)
 include(CPack)
 
 # Package resources and libraries
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/save/ DESTINATION ${FOLDER_NAME}/save )
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/res/ DESTINATION ${FOLDER_NAME}/res )
 install(TARGETS ${PROJECT_NAME} DESTINATION ${FOLDER_NAME}/bin)
 install(FILES

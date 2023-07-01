@@ -32,6 +32,15 @@ float normSpeed(float speed);
  * @return std::string number with leading zeroes
  */
 std::string addLeadingZeroes(double num, int targetLength, bool zeroesOnly);
+
+/**
+ * @brief Get minimum translation vector
+ *
+ * @param rect1 Rectangle 1
+ * @param rect2 Rectangle 2
+ * @return Vector2 MTV
+ */
+Vector2 getMTV(Rectangle rect1, Rectangle rect2);
 }  // namespace math
 
 enum EaseType {

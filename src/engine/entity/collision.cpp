@@ -1,32 +1,34 @@
 #include "entity.h"
 
 bool Entity::outOfBounds(Vector2 start, Vector2 end) {
-    bool collided = false;
-    Vector2 newPosition = position;
+    bool out = false;
 
     if (position.x < start.x) {
-        newPosition.x = start.x;
-        collided = true;
+        position.x = start.x;
+        out = true;
     } else if (position.x + size.x > start.x + end.x) {
-        newPosition.x = start.x + end.x - size.x;
-        collided = true;
+        position.x = start.x + end.x - size.x;
+        out = true;
     }
 
     if (position.y < start.y) {
-        newPosition.y = start.y;
-        collided = true;
+        position.y = start.y;
+        out = true;
     } else if (position.y + size.y > start.y + end.y) {
-        newPosition.y = start.y + end.y - size.y;
-        collided = true;
+        position.y = start.y + end.y - size.y;
+        out = true;
     }
 
-    if (collided) position = newPosition;
-    return collided;
+    return out;
 }
 
 bool Entity::collidesWith(Rectangle other) {
-    bool check = CheckCollisionRecs({position.x, position.y, size.x, size.y}, {other.x, other.y, other.width, other.height});
-    if (check)
-        position = prevPosition;
-    return check;
+    if (CheckCollisionRecs({position.x, position.y, size.x, size.y}, other)) {
+        Vector2 mtv = math::getMTV(getRect(), other);
+        position.x += mtv.x;
+        position.y += mtv.y;
+        return true;
+    } else {
+        return false;
+    }
 }

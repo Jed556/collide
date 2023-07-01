@@ -8,8 +8,7 @@ namespace key {
  * @brief Check if key is pressed
  *
  * @param key Key to check
- * @return true
- * @return false
+ * @return true if key is pressed
  */
 bool pressed(int key);
 
@@ -17,8 +16,7 @@ bool pressed(int key);
  * @brief Check if key is held
  *
  * @param key Key to check
- * @return true
- * @return false
+ * @return true if key is held
  */
 bool held(int key);
 
@@ -26,8 +24,7 @@ bool held(int key);
  * @brief Check if key is released
  *
  * @param key Key to check
- * @return true
- * @return false
+ * @return true if key is released
  */
 bool released(int key);
 

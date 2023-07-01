@@ -1,7 +1,4 @@
-#include <iostream>
-
 #include "engine/engine.h"
-#include "game/game.h"
 
 // Window configurations
 const int windowWidth = 1000;
@@ -30,7 +27,7 @@ int main() {
     display::setFPS(targetFPS);
 
     unsigned int dataSize;
-    unsigned char* loadedGameData = LoadFileData("save.dat", &dataSize);
+    unsigned char* loadedGameData = LoadFileData("../save/save.dat", &dataSize);
     std::cout << "Loaded game data size: " << dataSize << std::endl;
     std::cout << "Game data size: " << sizeof(GameData) << std::endl;
 
@@ -51,13 +48,6 @@ int main() {
         }
         // Use default game data
     }
-
-    // int precision = 0;
-    // int mapDimension = std::max(mapSize.x, mapSize.y);
-    // while (mapDimension % 10 != 0 && precision < INT_MAX) {
-    //     mapDimension *= 10;
-    //     precision++;
-    // }
 
     while (!WindowShouldClose()) {
         // Begin debug mode
@@ -137,15 +127,11 @@ int main() {
         EndDrawing();
     }
 
-    // Bye!
+    // Save game data
     GameData gameData = {player, player2, player3, control};
-    bool saved = SaveFileData("save.dat", &gameData, (unsigned int)sizeof(gameData));
-    if (saved) {
-        std::cout << "Game saved successfully!" << std::endl;
-    } else {
-        std::cout << "Game could not be saved!" << std::endl;
-    }
+    data::save("../save/save.dat", gameData);
 
+    // Bye!
     display::close();
     return 0;
 }

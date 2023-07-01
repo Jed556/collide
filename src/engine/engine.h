@@ -5,5 +5,6 @@
 #include "debug/debug.h"
 #include "display/display.h"
 #include "entity/entity.h"
+#include "data/data.h"
 
 #endif  // ENGINE_H

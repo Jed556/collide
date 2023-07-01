@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "engine/engine.h"
+#include "game/game.h"
 
 // Window configurations
 const int windowWidth = 1000;
@@ -16,6 +17,7 @@ Vector2 playerSize = {40, 40};
 // Auto generated configuration
 Vector2 windowDimension = {windowWidth, windowHeight};
 Debug debug({windowDimension.x, windowDimension.y});
+int control = 1;
 // Game objects
 Entity player(playerSize, {0}, {playerSize.x / 2, playerSize.y / 2}, GREEN, 500.0f);
 Entity player2(playerSize, {mapSize.x / 2, mapSize.y / 2}, {playerSize.x / 2, playerSize.y / 2}, YELLOW, 500.0f);
@@ -27,7 +29,28 @@ int main() {
     display::init(windowDimension, windowTitle);
     display::setFPS(targetFPS);
 
-    int control = 1;
+    unsigned int dataSize;
+    unsigned char* loadedGameData = LoadFileData("save.dat", &dataSize);
+    std::cout << "Loaded game data size: " << dataSize << std::endl;
+    std::cout << "Game data size: " << sizeof(GameData) << std::endl;
+
+    // Use the loaded game data
+    if (loadedGameData != NULL && dataSize == sizeof(GameData)) {
+        GameData* dataPtr = (GameData*)loadedGameData;
+        control = dataPtr->control;
+        player = dataPtr->player;
+        player2 = dataPtr->player2;
+        player3 = dataPtr->player3;
+
+        UnloadFileData(loadedGameData);
+    } else {
+        if (loadedGameData == NULL) {
+            std::cout << "Error: Failed to load game data from file." << std::endl;
+        } else {
+            std::cout << "Error: Invalid game data size." << std::endl;
+        }
+        // Use default game data
+    }
 
     // int precision = 0;
     // int mapDimension = std::max(mapSize.x, mapSize.y);
@@ -115,6 +138,14 @@ int main() {
     }
 
     // Bye!
+    GameData gameData = {player, player2, player3, control};
+    bool saved = SaveFileData("save.dat", &gameData, (unsigned int)sizeof(gameData));
+    if (saved) {
+        std::cout << "Game saved successfully!" << std::endl;
+    } else {
+        std::cout << "Game could not be saved!" << std::endl;
+    }
+
     display::close();
     return 0;
 }

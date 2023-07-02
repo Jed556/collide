@@ -13,14 +13,20 @@ void setFPS(int fps);
 
 /**
  * @brief Get frame count
- * 
+ *
  * @return int frame count
  */
 int getFrameCount();
 
 /**
+ * @brief display user defined cursor
+ *
+ */
+void showCustomCursor();
+
+/**
  * @brief Initialize window
- * 
+ *
  * @param dimension Window dimension to set
  * @param title Window title to set
  */

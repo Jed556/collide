@@ -15,7 +15,7 @@
 Soon...
 
 ## Download
-Check [**Releases**](https://github.com/Jed556/game/releases) page and install the latest [**RPG.exe**](https://github.com/Jed556/game/releases) release.
+Check [**Releases**](https://github.com/Jed556/collide/releases) page and install the latest [**Collide.zip**](https://github.com/Jed556/collide/releases) release.
 
 
 ## Controls
@@ -23,6 +23,6 @@ Check [**Releases**](https://github.com/Jed556/game/releases) page and install t
 - **A**: Move left
 - **S**: Move down
 - **D**: Move right
-
-## Debug
-Press `/` to show debug info.
+- **Q**: Previous character
+- **E**: Next character
+- **F1**: Toggle debug mode

@@ -5,10 +5,11 @@
 #include <raylib.h>
 
 #include <string>
+#include <vector>
 
-#include "../math/math.h"
-#include "../display/display.h"
 #include "../control/control.h"
+#include "../display/display.h"
+#include "../math/math.h"
 
 class Debug {
    private:
@@ -16,7 +17,7 @@ class Debug {
     Vector2 screenSize;
     int frameCount = 0;
 
-    Font font = GetFontDefault();
+    Font font;
     float fontSize = 20;
     float fontSpacing = 2;
     Color textColor = (Color){0, 0, 0, 255 / 3};
@@ -32,7 +33,7 @@ class Debug {
      *
      * @param screenSize Window dimensions
      */
-    Debug(Vector2 screenSize);
+    Debug(Vector2 screenSize, Font font);
 
     /**
      * @brief Toggle debug mode
@@ -55,7 +56,7 @@ class Debug {
     void begin();
 
     /**
-     * @brief Show all debug overlays
+     * @brief Show pre-set overlays
      *
      * @param showCenterPoint Show center point
      * @param showCenterCross Show center cross
@@ -83,6 +84,31 @@ class Debug {
      *
      */
     void showFPS();
+
+    /**
+     * @brief Show memory usage
+     *
+     */
+    // void showMemoryUsage();
+
+    /**
+     * @brief Get the current memory usage
+     *
+     * @return int
+     */
+    // int getCurrentMemoryUsage();
+
+    /**
+     * @brief Show mouse position
+     *
+     */
+    void showMousePosition();
+
+    /**
+     * @brief Show key pressed
+     *
+     */
+    void showKeyPressed();
 
     /**
      * @brief Show object position

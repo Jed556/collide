@@ -4,8 +4,8 @@
 #include <raylib.h>
 #include <raymath.h>
 
-#include <iostream>
 #include <filesystem>
+#include <iostream>
 
 #include "../../game/gameData.h"
 
@@ -18,7 +18,7 @@ namespace data {
  * @return true
  * @return false
  */
-bool save(const char* fileName, GameData data);
+bool save(const char* fileName, GameData gameData);
 
 /**
  * @brief Load game data from a file
@@ -26,7 +26,15 @@ bool save(const char* fileName, GameData data);
  * @param fileName File name / path
  * @return GameData
  */
-void load(const char* fileName);
+void load(const char* fileName, GameDataRef& gameDataRef);
+
+/**
+ * @brief Parse game data loaded
+ * 
+ * @param loadedData Loaded game data
+ * @param gameDataRef References to game data
+ */
+void parse(GameData* loadedData, GameDataRef& gameDataRef);
 }  // namespace data
 
 #endif  // DATA_H

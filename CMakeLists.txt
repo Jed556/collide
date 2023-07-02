@@ -29,12 +29,10 @@ list(REMOVE_ITEM SOURCE ${REMOVE_CMAKE})
 add_executable(${PROJECT_NAME} ${SOURCE})
 
 # Link libraries
-find_package(unofficial-sqlite3 CONFIG REQUIRED)
 find_package(raylib CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
-    unofficial::sqlite3::sqlite3
     raylib
     fmt::fmt-header-only
 )
@@ -65,12 +63,10 @@ include(CPack)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/res/ DESTINATION ${FOLDER_NAME}/res )
 install(TARGETS ${PROJECT_NAME} DESTINATION ${FOLDER_NAME}/bin)
 install(FILES
-    $<TARGET_FILE:unofficial::sqlite3::sqlite3> 
     $<TARGET_FILE:raylib>
     $<TARGET_FILE:fmt::fmt>
     src/bin/libstdc++-6.dll
     src/bin/libgcc_s_seh-1.dll
-    src/bin/freetype.dll
     DESTINATION ${FOLDER_NAME}/bin
 )
 

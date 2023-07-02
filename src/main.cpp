@@ -21,33 +21,14 @@ Entity player2(playerSize, {mapSize.x / 2, mapSize.y / 2}, {playerSize.x / 2, pl
 Entity player3(playerSize, {mapSize.x - playerSize.x / 2, mapSize.y - playerSize.y / 2}, {playerSize.x / 2, playerSize.y / 2}, ORANGE, 500.0f);
 GameCamera camera(player.position, {windowDimension.x / 2 - player.position.x, windowDimension.y / 2 - player.position.y}, 0.0f, 1.0f, 20.0f);
 
+GameDataRef gameDataRef = {player, player2, player3, control};
+
 // MAIN CODE
 int main() {
     display::init(windowDimension, windowTitle);
     display::setFPS(targetFPS);
 
-    unsigned int dataSize;
-    unsigned char* loadedGameData = LoadFileData("../save/save.dat", &dataSize);
-    std::cout << "Loaded game data size: " << dataSize << std::endl;
-    std::cout << "Game data size: " << sizeof(GameData) << std::endl;
-
-    // Use the loaded game data
-    if (loadedGameData != NULL && dataSize == sizeof(GameData)) {
-        GameData* dataPtr = (GameData*)loadedGameData;
-        control = dataPtr->control;
-        player = dataPtr->player;
-        player2 = dataPtr->player2;
-        player3 = dataPtr->player3;
-
-        UnloadFileData(loadedGameData);
-    } else {
-        if (loadedGameData == NULL) {
-            std::cout << "Error: Failed to load game data from file." << std::endl;
-        } else {
-            std::cout << "Error: Invalid game data size." << std::endl;
-        }
-        // Use default game data
-    }
+    data::load("../save/save.dat", gameDataRef);
 
     while (!WindowShouldClose()) {
         // Begin debug mode

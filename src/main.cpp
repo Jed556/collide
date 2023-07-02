@@ -4,6 +4,7 @@
 const int windowWidth = 1000;
 const int windowHeight = 900;
 const int targetFPS = 0;  // 0 = auto detect
+const char* savePath = "../save/save.dat";
 const char* windowTitle = "RPG (Test)";
 
 // Game configurations
@@ -13,7 +14,7 @@ Vector2 playerSize = {40, 40};
 
 // Auto generated configuration
 Vector2 windowDimension = {windowWidth, windowHeight};
-Debug debug({windowDimension.x, windowDimension.y});
+Debug debug({windowDimension.x, windowDimension.y}, GetFontDefault());
 int control = 1;
 // Game objects
 Entity player(playerSize, {0}, {playerSize.x / 2, playerSize.y / 2}, GREEN, 500.0f);
@@ -28,7 +29,7 @@ int main() {
     display::init(windowDimension, windowTitle);
     display::setFPS(targetFPS);
 
-    data::load("../save/save.dat", gameDataRef);
+    data::load(savePath, gameDataRef);
 
     while (!WindowShouldClose()) {
         // Begin debug mode
@@ -97,12 +98,15 @@ int main() {
         // End camera mode
         camera.end();
 
+        display::showCustomCursor();
+
         // Show debug info
         debug.showOverlays(true, false);
+        debug.showKeyPressed();
+        debug.showPosition(camera.prop.target, {0}, false, "Camera");
         debug.showPosition(player.position, player.size, false, "Player1");
         debug.showPosition(player2.position, player2.size, false, "Player2");
         debug.showPosition(player3.position, player3.size, false, "Player3");
-        debug.showPosition(camera.prop.target, {0}, false, "Camera");
 
         // End drawing / swap buffers
         EndDrawing();
@@ -110,7 +114,7 @@ int main() {
 
     // Save game data
     GameData gameData = {player, player2, player3, control};
-    data::save("../save/save.dat", gameData);
+    data::save(savePath, gameData);
 
     // Bye!
     display::close();

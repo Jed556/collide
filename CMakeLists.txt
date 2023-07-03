@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 3.0.0)
 set(CMAKE_TOOLCHAIN_FILE "../../Managers/vcpkg/scripts/buildsystems/vcpkg.cmake")
 project(RPG
-    VERSION 1.22.11
+    VERSION 1.23.11
     DESCRIPTION "Test game"
     HOMEPAGE_URL "https://github.com/Jed556/game"
     LANGUAGES CXX

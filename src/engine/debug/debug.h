@@ -26,6 +26,9 @@ class Debug {
     int numShown = 0;
     float infoSpacing = 22;
     Vector2 infoPadding = {6, 5};
+    Vector2 listPadding = {15, 15};
+
+    float getNextInfoY();
 
    public:
     /**
@@ -107,8 +110,9 @@ class Debug {
     /**
      * @brief Show key pressed
      *
+     * @param valueOnly Show integer value only
      */
-    void showKeyPressed();
+    void showKeyPressed(bool valueOnly);
 
     /**
      * @brief Show object position

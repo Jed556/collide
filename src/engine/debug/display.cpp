@@ -15,8 +15,7 @@ void Debug::showCenter(bool showPoint, bool showCross) {
 void Debug::showFPS() {
     if (!isActive()) return;
 
-    float yPos = infoPadding.y + numShown * infoSpacing;
+    float yPos = getAndUpdateInfoY();
     DrawTextEx(font, TextFormat("FPS: %i (%i)", GetFPS(), frameCount),
                {infoPadding.x, yPos}, fontSize, fontSpacing, textColor);
-    ++numShown;
 }

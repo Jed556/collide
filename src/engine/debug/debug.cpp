@@ -18,7 +18,7 @@ void Debug::begin() {
     numShown = 0;
 }
 
-float Debug::getNextInfoY() {
+float Debug::getAndUpdateInfoY() {
     float y = numShown * infoSpacing + infoPadding.y;
     ++numShown;
     return y;

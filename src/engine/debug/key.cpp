@@ -3,7 +3,7 @@
 void Debug::showKeyPressed(bool valueOnly) {
     if (!isActive()) return;
 
-    float yPos = infoPadding.y + numShown * infoSpacing;
+    float yPos = getAndUpdateInfoY();
 
     static std::vector<int> keys;
     int keyPressed = 0, prevKeyPressed = 0;
@@ -370,13 +370,7 @@ void Debug::showKeyPressed(bool valueOnly) {
         numPadding += MeasureTextEx(font, keyVal, fontSize, fontSpacing).x + listPadding.x;
     }
 
-    // Debug
-    // std::cout << "Text size: " << initTextSize.x << ", " << initTextSize.y << std::endl;
-    // std::cout << "NumPad size: " << numPadding << std::endl;
-
     if (frameCount == 0) {
         keys.clear();
     }
-
-    ++numShown;
 }

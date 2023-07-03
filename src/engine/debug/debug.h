@@ -28,7 +28,13 @@ class Debug {
     Vector2 infoPadding = {6, 5};
     Vector2 listPadding = {15, 15};
 
-    float getNextInfoY();
+    /**
+     * @brief Get the next y position to draw debug info
+     * @brief and increment the number of debug info lines shown
+     *
+     * @return float Next available Y position
+     */
+    float getAndUpdateInfoY();
 
    public:
     /**

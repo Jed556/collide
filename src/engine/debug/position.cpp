@@ -3,17 +3,16 @@
 void Debug::showMousePosition() {
     if (!isActive()) return;
 
-    float yPos = infoPadding.y + numShown * infoSpacing;
+    float yPos = getAndUpdateInfoY();
     Vector2 mousePosition = GetMousePosition();
     DrawTextEx(font, TextFormat("Mouse: (%07.2f, %07.2f)", mousePosition.x, mousePosition.y),
                {infoPadding.x, yPos}, fontSize, fontSpacing, textColor);
-    ++numShown;
 }
 
 void Debug::showPosition(Vector2 objectPosition, Vector2 objectSize, bool centered, std::string name) {
     if (!isActive()) return;
 
-    float yPos = infoPadding.y + numShown * infoSpacing;
+    float yPos = getAndUpdateInfoY();
     if (centered) {
         objectPosition.x += objectSize.x / 2.0f;
         objectPosition.y += objectSize.y / 2.0f;
@@ -25,5 +24,4 @@ void Debug::showPosition(Vector2 objectPosition, Vector2 objectSize, bool center
 
     DrawTextEx(font, TextFormat("%s: (%07.2f, %07.2f)", name.c_str(), objectPosition.x, objectPosition.y),
                {infoPadding.x, yPos}, fontSize, fontSpacing, textColor);
-    ++numShown;
 }

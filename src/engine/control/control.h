@@ -29,6 +29,14 @@ bool held(int key);
 bool released(int key);
 
 /**
+ * @brief Get the name of a key
+ *
+ * @param key Key to get name of
+ * @return const char* Name of key
+ */
+const char* name(int key);
+
+/**
  * @brief Check if debug key is pressed
  *
  * @return true

@@ -6,6 +6,7 @@ const int windowHeight = 900;
 const int targetFPS = 0;  // 0 = auto detect
 const char* savePath = "../save/save.dat";
 const char* windowTitle = "RPG (Test)";
+const char* iconPath = "../res/images/logo.png";
 
 // Game configurations
 Vector2 mapSize = {1920, 1080};
@@ -26,7 +27,7 @@ GameDataRef gameDataRef = {player, player2, player3, control};
 
 // MAIN CODE
 int main() {
-    display::init(windowDimension, windowTitle);
+    display::init(windowDimension, windowTitle, iconPath);
     display::setFPS(targetFPS);
 
     data::load(savePath, gameDataRef);

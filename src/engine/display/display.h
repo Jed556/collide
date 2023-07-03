@@ -30,7 +30,7 @@ void showCustomCursor();
  * @param dimension Window dimension to set
  * @param title Window title to set
  */
-void init(Vector2 dimension, const char* title);
+void init(Vector2 dimension, const char* title, const char* iconPath);
 
 /**
  * @brief Close window

@@ -102,7 +102,6 @@ int main() {
 
         // Show debug info
         debug.showOverlays(true, false);
-        debug.showKeyPressed();
         debug.showPosition(camera.prop.target, {0}, false, "Camera");
         debug.showPosition(player.position, player.size, false, "Player1");
         debug.showPosition(player2.position, player2.size, false, "Player2");

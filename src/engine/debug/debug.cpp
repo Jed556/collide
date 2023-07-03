@@ -29,5 +29,6 @@ void Debug::showOverlays(bool showCenterPoint, bool showCenterCross) {
 
     showFPS();
     showMousePosition();
+    showKeyPressed(false);
     showCenter(showCenterPoint, showCenterCross);
 }

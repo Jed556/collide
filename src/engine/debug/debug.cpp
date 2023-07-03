@@ -18,6 +18,12 @@ void Debug::begin() {
     numShown = 0;
 }
 
+float Debug::getNextInfoY() {
+    float y = numShown * infoSpacing + infoPadding.y;
+    ++numShown;
+    return y;
+}
+
 void Debug::showOverlays(bool showCenterPoint, bool showCenterCross) {
     if (!isActive()) return;
 

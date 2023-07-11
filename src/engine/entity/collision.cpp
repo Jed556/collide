@@ -22,7 +22,7 @@ bool Entity::outOfBounds(Vector2 start, Vector2 end) {
     return out;
 }
 
-bool Entity::collidesWith(Rectangle other) {
+bool Entity::collidesWithRect(Rectangle other) {
     if (CheckCollisionRecs({position.x, position.y, size.x, size.y}, other)) {
         Vector2 mtv = math::getMTV(getRect(), other);
         position.x += mtv.x;
@@ -30,5 +30,17 @@ bool Entity::collidesWith(Rectangle other) {
         return true;
     } else {
         return false;
+    }
+}
+
+int Entity::collidesWithList(CollisionList& list) {
+    int index = list.checkCollisionRect(getRect());
+    if (index != 0 && list.getName(index) != name) {
+        Vector2 mtv = math::getMTV(getRect(), list.getRect(index));
+        position.x += mtv.x;
+        position.y += mtv.y;
+        return index;
+    } else {
+        return 0;
     }
 }

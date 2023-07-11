@@ -1,6 +1,9 @@
 #include "entity.h"
 
-Entity::Entity(Vector2 size, Vector2 position, Vector2 origin, Color color, float speed) {
+Entity::Entity(const char* name, CollisionList& list, Vector2 size, Vector2 position, Vector2 origin, Color color, float speed) {
+    this->name = name;
+    this->listIndex = list.addRect({position.x, position.y, size.x, size.y}, name);
+
     this->size = size;
     this->position = position;
     this->prevPosition = position;

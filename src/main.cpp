@@ -18,9 +18,10 @@ Vector2 windowDimension = {windowWidth, windowHeight};
 Debug debug({windowDimension.x, windowDimension.y}, GetFontDefault());
 int control = 1;
 // Game objects
-Entity player(playerSize, {0}, {playerSize.x / 2, playerSize.y / 2}, GREEN, 500.0f);
-Entity player2(playerSize, {mapSize.x / 2, mapSize.y / 2}, {playerSize.x / 2, playerSize.y / 2}, YELLOW, 500.0f);
-Entity player3(playerSize, {mapSize.x - playerSize.x / 2, mapSize.y - playerSize.y / 2}, {playerSize.x / 2, playerSize.y / 2}, ORANGE, 500.0f);
+CollisionList objectList;
+Entity player("Player1", objectList, playerSize, {playerSize.x / 2, playerSize.y / 2}, {playerSize.x / 2, playerSize.y / 2}, GREEN, 500.0f);
+Entity player2("Player2", objectList, playerSize, {mapSize.x / 2, mapSize.y / 2}, {playerSize.x / 2, playerSize.y / 2}, YELLOW, 500.0f);
+Entity player3("Player3", objectList, playerSize, {mapSize.x - playerSize.x / 2, mapSize.y - playerSize.y / 2}, {playerSize.x / 2, playerSize.y / 2}, ORANGE, 500.0f);
 GameCamera camera(player.position, {windowDimension.x / 2 - player.position.x, windowDimension.y / 2 - player.position.y}, 0.0f, 1.0f, 20.0f);
 
 GameDataRef gameDataRef = {player, player2, player3, control};
@@ -31,6 +32,9 @@ int main() {
     display::setFPS(targetFPS);
 
     data::load(savePath, gameDataRef);
+    player.updateCollider(objectList);
+    player2.updateCollider(objectList);
+    player3.updateCollider(objectList);
 
     while (!WindowShouldClose()) {
         // Begin debug mode
@@ -57,24 +61,24 @@ int main() {
         switch (control) {
             case 1:
                 player.move();
-                player.collidesWith(player2.getRect());
-                player.collidesWith(player3.getRect());
+                player.collidesWithList(objectList);
                 player.outOfBounds(player.getHalfSize(), mapSize);
                 camera.update(player.position, EaseType::EaseInOutQuad);
+                player.updateCollider(objectList);
                 break;
             case 2:
                 player2.move();
-                player2.collidesWith(player.getRect());
-                player2.collidesWith(player3.getRect());
+                player2.collidesWithList(objectList);
                 player2.outOfBounds(player2.getHalfSize(), mapSize);
                 camera.update(player2.position, EaseType::EaseInOutQuad);
+                player2.updateCollider(objectList);
                 break;
             case 3:
                 player3.move();
-                player3.collidesWith(player.getRect());
-                player3.collidesWith(player2.getRect());
+                player3.collidesWithList(objectList);
                 player3.outOfBounds(player3.getHalfSize(), mapSize);
                 camera.update(player3.position, EaseType::EaseInOutQuad);
+                player3.updateCollider(objectList);
                 break;
         }
 
@@ -95,6 +99,7 @@ int main() {
 
         // Draw debug grid
         debug.showGrid(mapSize, tileSize);
+        if (debug.isActive()) objectList.draw(RED, false, 2);
 
         // End camera mode
         camera.end();

@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "../../game/gameData.h"
+#include "../collider/collider.h"
 
 namespace data {
 /**

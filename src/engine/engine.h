@@ -6,5 +6,7 @@
 #include "display/display.h"
 #include "entity/entity.h"
 #include "data/data.h"
+#include "extras/extras.h"
+#include "collider/collider.h"
 
 #endif  // ENGINE_H

@@ -3,8 +3,9 @@
 namespace display {
 void init(Vector2 dimension, const char* title, const char* iconPath) {
     Image icon = LoadImage(iconPath);
+    SetWindowState(FLAG_WINDOW_HIGHDPI | FLAG_MSAA_4X_HINT);
     InitWindow((int)dimension.x, (int)dimension.y, title);
-    SetWindowState(FLAG_WINDOW_HIGHDPI | FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT | FLAG_WINDOW_UNDECORATED);
+    SetWindowState(FLAG_VSYNC_HINT | FLAG_WINDOW_UNDECORATED);
     SetWindowIcon(icon);
 }
 

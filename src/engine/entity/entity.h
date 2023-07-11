@@ -9,16 +9,17 @@
 
 struct Entity {
     // list properties
-    const char* name; // unique name of entity
-    int listIndex;  // index of entity in list (i + 1)
+    // CollisionList& list; // list the entity hitbox belongs to
+    const char* name;  // unique name of entity
+    int listIndex;     // index of entity in list (i + 1)
 
     // entity properties
-    Vector2 size; // size of entity
-    Vector2 position; // position of entity
-    Vector2 prevPosition; // previous position of entity
-    Vector2 origin; // anchor point of entity
-    Color color; // color of entity
-    float speed; // speed of entity
+    Vector2 size;          // size of entity
+    Vector2 position;      // position of entity
+    Vector2 prevPosition;  // previous position of entity
+    Vector2 origin;        // anchor point of entity
+    Color color;           // color of entity
+    float speed;           // speed of entity
 
     /**
      * @brief Construct a new Entity object
@@ -49,6 +50,14 @@ struct Entity {
     void randomMove(Vector2 mapSize);
 
     /**
+     * @brief Update entity collision list
+     *
+     * @param list list to update (entity name must be in list)
+     * @return true if collider is updated
+     */
+    void updateCollider(CollisionList& list);
+
+    /**
      * @brief Check if entity collides with object
      *
      * @param start start of map
@@ -71,7 +80,7 @@ struct Entity {
      * @param object object to check collision with
      * @return int index of object in list collided (i + 1)
      */
-    int collidesWithList(CollisionList& list);
+    std::vector<int> collidesWithList(CollisionList& list);
 
     /**
      * @brief Draw player

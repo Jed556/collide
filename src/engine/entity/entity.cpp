@@ -1,15 +1,8 @@
 #include "entity.h"
 
-Entity::Entity(const char* name, CollisionList& list, Vector2 size, Vector2 position, Vector2 origin, Color color, float speed) {
-    this->name = name;
-    this->listIndex = list.addRect({position.x, position.y, size.x, size.y}, name);
-
-    this->size = size;
-    this->position = position;
-    this->prevPosition = position;
-    this->origin = origin;
-    this->color = color;
-    this->speed = speed;
+Entity::Entity(const char* name, CollisionList& list, Vector2 size, Vector2 position, Vector2 origin, Color color, float speed)
+    : name(name), size(size), position(position), prevPosition(position), origin(origin), color(color), speed(speed) {
+    this->listIndex = list.add({position.x - origin.x, position.y - origin.y, size.x, size.y}, name);
 }
 
 void Entity::draw() {
@@ -21,5 +14,5 @@ Vector2 Entity::getHalfSize() {
 }
 
 Rectangle Entity::getRect() {
-    return {position.x, position.y, size.x, size.y};
+    return {position.x - origin.x, position.y - origin.y, size.x, size.y};
 }

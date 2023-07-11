@@ -3,23 +3,21 @@
 
 #include <raylib.h>
 
-#include <vector>
 #include <iostream>
+#include <vector>
 
 #include "../extras/extras.h"
 
-class CollisionList {
-   private:
-    struct Collider {
-        Rectangle rect;
-        Circle circle;
-        int type;  // 0 = rect, 1 = circle
-        const char* name;
-    };
+struct Collider {
+    Rectangle rect;
+    Circle circle;
+    int type;  // 0 = rect, 1 = circle
+    const char* name;
+};
 
+struct CollisionList {
     std::vector<Collider> list;
 
-   public:
     /**
      * @brief Add a rectangle to list
      *
@@ -27,7 +25,7 @@ class CollisionList {
      * @param name Unique name of rectangle
      * @return int index of added rectangle (i + 1)
      */
-    int addRect(Rectangle rect, const char* name);
+    int add(Rectangle rect, const char* name);
 
     /**
      * @brief Add a circle to list
@@ -36,7 +34,39 @@ class CollisionList {
      * @param name Unique name of circle
      * @return int index of added circle (i + 1)
      */
-    int addCircle(Circle circle, const char* name);
+    int add(Circle circle, const char* name);
+
+    /**
+     * @brief Update a rectangle in the list
+     *
+     * @param index index of rectangle (i + 1)
+     * @param rect new rectangle properties
+     */
+    void update(int index, Rectangle rect);
+
+    /**
+     * @brief Update a circle in the list
+     *
+     * @param index index of circle (i + 1)
+     * @param circle new circle properties
+     */
+    void update(int index, Circle circle);
+
+    /**
+     * @brief Update a rectangle in the list
+     *
+     * @param name name of rectangle
+     * @param rect new rectangle properties
+     */
+    void update(const char* name, Rectangle rect);
+
+    /**
+     * @brief Update a circle in the list
+     *
+     * @param name name of circle
+     * @param circle new circle properties
+     */
+    void update(const char* name, Circle circle);
 
     /**
      * @brief Get the Rectangle object
@@ -63,12 +93,28 @@ class CollisionList {
     const char* getName(int index);
 
     /**
+     * @brief Get the list of objects
+     *
+     * @return std::vector<Collider>
+     */
+    std::vector<Collider> getList();
+
+    /**
+     * @brief Draw all collision boxes
+     *
+     * @param color color of collision box lines
+     * @param fill fill collision boxes with color
+     * @param width width of collision box lines (if fill is false)
+     */
+    void draw(Color color, bool fill, int width);
+
+    /**
      * @brief Check if rectangle collides with any of the rectangles in the list
      *
      * @param rect rectangle to check collision with
      * @return int index of rectangle (i + 1)
      */
-    int checkCollisionRect(Rectangle rect);
+    std::vector<int> checkCollision(Rectangle rect);
 
     /**
      * @brief Check if circle collides with any of the circles in the list
@@ -76,7 +122,7 @@ class CollisionList {
      * @param circle circle to check collision with
      * @return int index of circle (i + 1)
      */
-    int checkCollisionCircle(Circle circle);
+    std::vector<int> checkCollision(Circle circle);
 
     /**
      * @brief Check if any of the objects in the list collide with any of the objects in the other list
@@ -84,7 +130,7 @@ class CollisionList {
      * @param otherList list to check collision with
      * @return int index of object (i + 1)
      */
-    int checkCollisionList(CollisionList otherList);
+    std::vector<int> checkCollision(CollisionList otherList);
 
     /**
      * @brief Check if rectangle collides with any of the rectangles in the list
@@ -93,7 +139,7 @@ class CollisionList {
      * @param name name of rectangle
      * @return int index of rectangle (i + 1)
      */
-    int checkCollisionNameRect(Rectangle rect, const char* name);
+    std::vector<int> checkCollision(Rectangle rect, const char* name);
 
     /**
      * @brief Check if circle collides with any of the circles in the list
@@ -102,7 +148,7 @@ class CollisionList {
      * @param name name of circle
      * @return int index of circle (i + 1)
      */
-    int checkCollisionNameCircle(Circle circle, const char* name);
+    std::vector<int> checkCollision(Circle circle, const char* name);
 
     /**
      * @brief Check if any of the objects in the list collide with any of the objects in the other list
@@ -111,7 +157,7 @@ class CollisionList {
      * @param name name of object
      * @return int index of object (i + 1)
      */
-    int checkCollisionNameList(CollisionList otherList, const char* name);
+    std::vector<int> checkCollision(CollisionList otherList, const char* name);
 };
 
 #endif  // COLLIDER_H

@@ -1,5 +1,9 @@
 #include "entity.h"
 
+void Entity::updateCollider(CollisionList& list) {
+    list.update(name, {position.x - origin.x, position.y - origin.y, size.x, size.y});
+}
+
 bool Entity::outOfBounds(Vector2 start, Vector2 end) {
     bool out = false;
 
@@ -28,19 +32,20 @@ bool Entity::collidesWithRect(Rectangle other) {
         position.x += mtv.x;
         position.y += mtv.y;
         return true;
-    } else {
-        return false;
     }
+    return false;
 }
 
-int Entity::collidesWithList(CollisionList& list) {
-    int index = list.checkCollisionRect(getRect());
-    if (index != 0 && list.getName(index) != name) {
-        Vector2 mtv = math::getMTV(getRect(), list.getRect(index));
-        position.x += mtv.x;
-        position.y += mtv.y;
-        return index;
-    } else {
-        return 0;
+std::vector<int> Entity::collidesWithList(CollisionList& list) {
+    std::vector<int> collided;
+    std::vector<int> index = list.checkCollision(getRect());
+    for (int i = 0; i < index.size(); i++) {
+        if (list.getName(index[i]) != this->name) {
+            Vector2 mtv = math::getMTV(getRect(), list.getRect(index[i]));
+            position.x += mtv.x;
+            position.y += mtv.y;
+            collided.push_back(index[i]);
+        }
     }
+    return collided;
 }

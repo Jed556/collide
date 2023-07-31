@@ -1,6 +1,6 @@
 #include "debug.h"
 
-void Debug::showGrid(Vector2 mapSize, Vector2 tileSize) {
+void Debug::showGrid(Rectangle map, float tileSize) {
     if (!isActive()) return;
 
     // Old method
@@ -12,8 +12,8 @@ void Debug::showGrid(Vector2 mapSize, Vector2 tileSize) {
     //         DrawRectangleLinesEx({x, y, width, height}, 1, gridColor);
     //     }
 
-    for (float y = 0; y <= mapSize.y; y += tileSize.y)
-        DrawLine(0, y, mapSize.x, y, gridColor);
-    for (float x = 0; x <= mapSize.x; x += tileSize.x)
-        DrawLine(x, 0, x, mapSize.y, gridColor);
+    for (float y = 0; y <= map.height; y += tileSize)
+        DrawLine(map.x, map.y + y, map.width, map.y + y, gridColor);
+    for (float x = 0; x <= map.width; x += tileSize)
+        DrawLine(map.x + x, map.y, map.x + x, map.height, gridColor);
 }

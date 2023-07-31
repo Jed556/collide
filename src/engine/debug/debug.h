@@ -78,7 +78,7 @@ class Debug {
      * @param mapSize Map size
      * @param tileSize Tile size
      */
-    void showGrid(Vector2 mapSize, Vector2 tileSize);
+    void showGrid(Rectangle map, float tileSize);
 
     /**
      * @brief Show center point and cross
@@ -130,6 +130,23 @@ class Debug {
      * @param name Object name
      */
     void showPosition(Vector2 objectPosition, Vector2 objectSize, bool centered, std::string name);
+
+    /**
+     * @brief Show object value
+     *
+     * @param value Value to show
+     * @param name Object name
+     */
+    void showValue(int value, std::string name);
+
+    /**
+     * @brief Show object value
+     *
+     * @param value Value to show
+     * @param name Object name
+     */
+    void showValue(float value, std::string name);
+
 };  // namespace debug
 
 #endif  // DEBUG_H

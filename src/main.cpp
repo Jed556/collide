@@ -10,12 +10,13 @@ const char* iconPath = "../res/images/logo.png";
 
 // Game configurations
 Vector2 mapSize = {1920, 1080};
-Vector2 tileSize = {40, 40};
+float tileSize = 40;
 Vector2 playerSize = {40, 40};
 
 // Auto generated configuration
 Vector2 windowDimension = {windowWidth, windowHeight};
 Debug debug({windowDimension.x, windowDimension.y}, GetFontDefault());
+Map map({0, 0}, mapSize, tileSize, "def");
 int control = 1;
 // Game objects
 CollisionList objectList;
@@ -35,6 +36,11 @@ int main() {
     player.updateCollider(objectList);
     player2.updateCollider(objectList);
     player3.updateCollider(objectList);
+
+    MapTile tile1("def", {-1, -1}, {1, 1}, false, false, false, LIGHTGRAY);
+    MapTile tile2("boi", {2, 2}, {2, 2}, false, false, false, BLACK);
+    map.addTile(tile1);
+    map.addTile(tile2);
 
     while (!WindowShouldClose()) {
         // Begin debug mode
@@ -86,11 +92,7 @@ int main() {
         camera.begin();
 
         // Draw the map
-        for (int x = 0; x < mapSize.x; x += tileSize.x) {
-            for (int y = 0; y < mapSize.y; y += tileSize.y) {
-                DrawRectangle(x, y, tileSize.x, tileSize.y, LIGHTGRAY);
-            }
-        }
+        map.draw();
 
         // Draw the player
         player.draw();
@@ -98,7 +100,7 @@ int main() {
         player3.draw();
 
         // Draw debug grid
-        debug.showGrid(mapSize, tileSize);
+        debug.showGrid(map.getRect(), map.tileSize);
         if (debug.isActive()) objectList.draw(RED, false, 2);
 
         // End camera mode
@@ -112,6 +114,7 @@ int main() {
         debug.showPosition(player.position, player.size, false, "Player1");
         debug.showPosition(player2.position, player2.size, false, "Player2");
         debug.showPosition(player3.position, player3.size, false, "Player3");
+        debug.showValue(control, "Control");
 
         // End drawing / swap buffers
         EndDrawing();
